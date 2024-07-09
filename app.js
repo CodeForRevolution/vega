@@ -16,7 +16,7 @@ app.use(express.json());//handling the json Data on Server
 app.use(cookieParser());// handling the cookie
 const errormiddleware=require("./backend/middleware/error")
 app.get('/',(req,res,next)=>{
-  res.send("<h1>Yahooo you will get well Soon VEGA6<h1/>")
+  res.send("<h1>Yahooo  serverUp and running VEGA6<h1/>")
 })
 
 app.use("/api/v1/",require("./backend/Route/userRoute"));// directing route to user Route
