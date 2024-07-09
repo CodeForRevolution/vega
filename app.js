@@ -6,11 +6,20 @@ console.log("your file",process.env.PORT)
 const bodyParser=require("body-parser")
 const cookieParser =require("cookie-parser");
 const cors=require("cors")
-  const allowedOrigins ="*"; // setting list of origin that can request in server
-  app.use(cors({
-    origin: allowedOrigins,
-    credentials: true,
-  }));
+const allowedOrigins = ["http://localhost:3000", "https://vega-shakir-ansaris-projects.vercel.app"];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+}));
 app.use(bodyParser.urlencoded({ extended: true }));//Handling binary Data in server
 app.use(express.json());//handling the json Data on Server
 app.use(cookieParser());// handling the cookie
